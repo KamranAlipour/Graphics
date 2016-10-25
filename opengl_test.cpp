@@ -6,7 +6,7 @@
 int mouseoldx, mouseoldy; // For mouse motion
 GLdouble eyeloc = 2.0; // Where to look from; initially 0 -2 2
 
-const GLfloat florverts [4][3]={
+const GLfloat floorverts [4][3]={
 {0.5,0.5,0.0},{-0.5,0.5,0.0},{-0.5,-0.5,0.0},{0.5,-0.5,0.0}};
 const GLfloat floorcol[4][3]={
 {1.0,0.0,0.0},{0.0,1.0,0.0},{0.0,0.0,1.0},{1.0,1.0,1.0}};
@@ -81,6 +81,7 @@ void display()
     glClear(GL_COLOR_BUFFER_BIT);
     //glColor3f(1.0, 1.0, 1.0);
     //glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+	/*
     glBegin(GL_POLYGON);
 	glColor3f(1.0, 0.0, 0.0);
         glVertex3f(0.5, 0.5, 0.0);
@@ -91,6 +92,9 @@ void display()
 	glColor3f(1.0, 1.0, 1.0);
         glVertex3f(0.5, -0.5, 0.0);
     glEnd();
+	*/
+	drawobject(FLOOR);
+	drawobject(FLOOR2);
     glFlush();
 }
 
@@ -162,7 +166,11 @@ int main(int argc, char** argv)
     glutInitWindowSize(500,500);
     glutInitWindowPosition(100,100);
     glutCreateWindow("OpenGL - First window demo");
-    init();
+    //init();
+	
+	//glGenBuffers(numperobj*numobjects, buffers);
+	initobject(FLOOR, (GLfloat *)floorverts, sizeof(floorverts), (GLfloat *)floorcol, sizeof(floorcol), (GLubyte *)floorinds, sizeof(floorinds), GL_POLYGON);
+	initobject(FLOOR2, (GLfloat *)floorverts2, sizeof(floorverts2), (GLfloat *)floorcol2, sizeof(floorcol2), (GLubyte *)floorinds2, sizeof(floorinds2), GL_POLYGON);
 
     display();
 
