@@ -48,6 +48,18 @@ void initobject (GLuint object, GLfloat * vert, GLint sizevert, GLfloat * col, G
 	NumElems[object] = sizeind;
 }
 
+void drawobject(GLuint object) {
+	int offset = object * numperobj;
+	glBindBuffer(GL_ARRAY_BUFFER, buffers[Vertices + offset]);
+	glVertexPointer(3, GL_FLOAT, 0, BUFFER_OFFSET(0));
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, buffers[Colors + offset]);
+	glColorPointer(3, GL_FLOAT, 0, BUFFER_OFFSET(0));
+	glEnableClientState(GL_COLOR_ARRAY);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[Elements + offset]);
+	glDrawElements(PrimType[object], NumElems[object], GL_UNSIGNED_BYTE, BUFFER_OFFSET(0));
+}
+
 void init (void)
 {
 	/* select clearing color */
